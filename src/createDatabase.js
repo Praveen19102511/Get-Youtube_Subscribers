@@ -3,12 +3,12 @@ const Subscriber = require("./models/subscriber");
 const data = require("./data");
 require("dotenv").config();
 
-// Connect to database
+// Connect to the MongoDB database using the URI provided in the environment variables
 const dbUrl = process.env.DATABASE_URI;
 mongoose
   .connect(dbUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    useNewUrlParser: true, // Use the new URL parser for MongoDB connection strings
+    useUnifiedTopology: true, // Use the new topology engine for MongoDB
   })
   .then(() => {
     console.log("Database connected");
@@ -17,9 +17,10 @@ mongoose
     console.log("Error connecting to database", err);
   });
 
-// Refresh data in subscribers collection
+// Define an asynchronous function to refresh the data in the 'subscribers' collection
 async function refreshData() {
-  try {
+  try { 
+    // Delete all existing documents in the 'subscribers' collection with a write timeout
     await Subscriber.deleteMany({}, { wtimeout: 30000 });
 
     console.log("Deleted all subscribers");
@@ -28,9 +29,11 @@ async function refreshData() {
   } catch (err) {
     console.log("Error refreshing data", err);
   } finally {
+    // Disconnect from the database once the data refresh is complete or if an error occurs
     mongoose.disconnect();
     console.log("Disconnected from database");
   }
 }
 
+// Call the refreshData function to execute the data refresh process
 refreshData();

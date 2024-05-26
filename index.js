@@ -4,14 +4,14 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const port = 3000;
 
-// Parse JSON bodies (as sent by API clients)
+// Middleware to parse JSON bodies sent by API clients
 app.use(express.json());
+// Middleware to parse JSON bodies sent by API clientsapp.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Connect to DATABASE
+// Retrieve the database URI from environment variables
 const dbUrl = process.env.DATABASE_URI;
-console.log(dbUrl);
-// Check the connection status
+// Retrieve the current state of the MongoDB connection
 const dbConnectionStatus = mongoose.connection.readyState;
 
 if (dbConnectionStatus === 1) {
