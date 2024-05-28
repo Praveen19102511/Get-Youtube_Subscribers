@@ -51,7 +51,7 @@ To run this project locally, make sure you have the following installed:
     ```
 2. Redirect to the project folder:
     ```
-     cd Get-YouTube-Subscribers
+     cd Get-YouTube_Subscribers
     ```
 3. Install the required dependencies:
     ```
